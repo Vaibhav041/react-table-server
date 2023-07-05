@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import Food from "../backend/DB/Food.js";
+import Food from "./DB/Food.js";
 const app = express();
 
 const corsConfig = {
