@@ -14,9 +14,15 @@ app.use(express.json());
 app.use(cors(corsConfig));
 dotenv.config();
 
-mongoose.connect(process.env.MONGO, { useNewUrlParser: true }).then(() => {
-  console.log("db");
-});
+const connectDB = async() => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO, { useNewUrlParser: true });
+    console.log("db");
+    
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 app.get("/get-data", async (req, res) => {
   try {
@@ -29,6 +35,11 @@ app.get("/get-data", async (req, res) => {
 
 const PORT = process.env.PORT || 9000;
 
-app.listen(PORT, () => {
-  console.log("connected");
-});
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log("connected");
+  });
+})
+
+
+// https://react-table-server.onrender.com/get-data
